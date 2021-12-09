@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:primeiroapp/shared/utils/app_state.dart';
 
-class LoginController {
+class LoginController extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
+  AppState appState = AppState.empty();
   String _email = '';
   String _password = '';
 
@@ -19,9 +21,21 @@ class LoginController {
     return false;
   }
 
-  void login() {
+  Future<void> login() async {
     if (validate()) {
-      print('Fazendo Login');
+      try {
+        update(AppState.loading());
+        //Chamada da API
+        await Future.delayed(Duration(seconds: 4));
+        update(AppState.success<String>('data'));
+      } catch (e) {
+        update(AppState.error('message', e: e as Exception));
+      }
     }
+  }
+
+  void update(AppState state) {
+    this.appState = state;
+    notifyListeners();
   }
 }

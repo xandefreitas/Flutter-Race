@@ -16,10 +16,28 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final controller = LoginController();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    controller.addListener(() {
+      controller.appState.when(
+        success: (value) => Navigator.pushNamed(context, '/home'),
+        loading: () => print('Loading...'),
+        error: (message, _) => scaffoldKey.currentState!.showBottomSheet(
+          (context) => Container(
+            child: Text(message),
+          ),
+        ),
+        orElse: () {},
+      );
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: AppTheme.colors.background,
       body: Center(
         child: SingleChildScrollView(
@@ -49,16 +67,29 @@ class _LoginPageState extends State<LoginPage> {
                     validator: (value) => value.length >= 6 ? null : 'Digite uma senha mais forte',
                   ),
                   SizedBox(height: 14),
-                  Button(
-                    label: 'Entrar',
-                    type: ButtonType.fill,
-                    onPressed: () => controller.login(),
-                  ),
-                  SizedBox(height: 24),
-                  Button(
-                    label: 'Criar conta',
-                    type: ButtonType.outline,
-                    onPressed: () => Navigator.pushNamed(context, '/login/create_account'),
+                  AnimatedBuilder(
+                    animation: controller,
+                    builder: (_, __) => controller.appState.when(
+                      loading: () => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                      orElse: () => Column(
+                        children: [
+                          Button(
+                            label: 'Entrar',
+                            type: ButtonType.fill,
+                            onPressed: () => controller.login(),
+                          ),
+                          SizedBox(height: 24),
+                          Button(
+                            label: 'Criar conta',
+                            type: ButtonType.outline,
+                            onPressed: () => Navigator.pushNamed(context, '/login/create_account'),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
