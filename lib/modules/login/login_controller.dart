@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primeiroapp/shared/services/app_database.dart';
 import 'package:primeiroapp/shared/utils/app_state.dart';
 
 class LoginController extends ChangeNotifier {
@@ -25,8 +26,7 @@ class LoginController extends ChangeNotifier {
     if (validate()) {
       try {
         update(AppState.loading());
-        //Chamada da API
-        await Future.delayed(Duration(seconds: 4));
+        await AppDatabase.instance.login(email: _email, password: _password);
         update(AppState.success<String>('data'));
       } catch (e) {
         update(AppState.error('message', e: e as Exception));

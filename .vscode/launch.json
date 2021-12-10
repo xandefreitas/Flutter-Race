@@ -7,7 +7,12 @@
         {
             "name": "primeiroapp",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define","SUPABASEURL=https://nxididpvremyoyyaumsp.supabase.co",
+                "--dart-define","SUPABASEKEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzOTA5MDI5NywiZXhwIjoxOTU0NjY2Mjk3fQ",
+            ]
+            
         },
         {
             "name": "primeiroapp (profile mode)",
