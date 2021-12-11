@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:primeiroapp/modules/login/pages/createAccount/create_account_controller.dart';
+import 'package:primeiroapp/modules/login/repositories/login_repository_impl.dart';
+import 'package:primeiroapp/shared/services/app_database.dart';
 import 'package:primeiroapp/shared/theme/app_theme.dart';
 import 'package:primeiroapp/shared/widgets/button/button.dart';
 import 'package:primeiroapp/shared/widgets/inputText/input_text.dart';
@@ -13,14 +15,15 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final controller = CreateAccountController();
+  late final CreateAccountController controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    controller = CreateAccountController(repository: LoginRepositoryImpl(database: AppDatabase.instance));
     controller.addListener(() {
       controller.appState.when(
-        success: (value) => Navigator.pushNamed(context, '/login'),
+        success: (value) => Navigator.pop(context),
         loading: () => print('Loading...'),
         error: (message, _) => scaffoldKey.currentState!.showBottomSheet(
           (context) => Container(
@@ -97,7 +100,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       orElse: () => Button(
                         label: 'Criar conta',
                         type: ButtonType.fill,
-                        onPressed: () => controller.create(),
+                        onPressed: () {
+                          controller.create();
+                        },
                       ),
                     ),
                   ),

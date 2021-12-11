@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:primeiroapp/modules/login/login_controller.dart';
 import 'package:primeiroapp/modules/login/pages/createAccount/create_account_page.dart';
+import 'package:primeiroapp/modules/login/repositories/login_repository.dart';
+import 'package:primeiroapp/modules/login/repositories/login_repository_impl.dart';
+import 'package:primeiroapp/shared/services/app_database.dart';
 
 import 'package:primeiroapp/shared/theme/app_theme.dart';
 import 'package:primeiroapp/shared/widgets/button/button.dart';
@@ -15,13 +18,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final controller = LoginController();
+  late final LoginController controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
+    controller = LoginController(repository: LoginRepositoryImpl(database: AppDatabase.instance));
     controller.addListener(() {
       controller.appState.when(
-        success: (value) => Navigator.pushNamed(context, '/home'),
+        success: (value) => Navigator.pushNamed(context, '/home', arguments: value),
         loading: () => print('Loading...'),
         error: (message, _) => scaffoldKey.currentState!.showBottomSheet(
           (context) => Container(

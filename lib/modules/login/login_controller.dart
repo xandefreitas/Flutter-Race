@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:primeiroapp/modules/login/repositories/login_repository.dart';
+import 'package:primeiroapp/shared/models/user_model.dart';
 import 'package:primeiroapp/shared/services/app_database.dart';
 import 'package:primeiroapp/shared/utils/app_state.dart';
 
 class LoginController extends ChangeNotifier {
+  final LoginRepository repository;
   final formKey = GlobalKey<FormState>();
   AppState appState = AppState.empty();
   String _email = '';
   String _password = '';
+
+  LoginController({required this.repository});
 
   void onChanged({String? email, String? password}) {
     _email = email ?? _email;
@@ -26,10 +31,10 @@ class LoginController extends ChangeNotifier {
     if (validate()) {
       try {
         update(AppState.loading());
-        await AppDatabase.instance.login(email: _email, password: _password);
-        update(AppState.success<String>('data'));
+        final response = await repository.login(email: _email, password: _password);
+        update(AppState.success<UserModel>(response));
       } catch (e) {
-        update(AppState.error('message', e: e as Exception));
+        update(AppState.error(e.toString()));
       }
     }
   }

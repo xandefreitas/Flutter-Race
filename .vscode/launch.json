@@ -10,7 +10,7 @@
             "type": "dart",
             "args": [
                 "--dart-define","SUPABASEURL=https://nxididpvremyoyyaumsp.supabase.co",
-                "--dart-define","SUPABASEKEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzOTA5MDI5NywiZXhwIjoxOTU0NjY2Mjk3fQ",
+                "--dart-define","SUPABASEKEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzOTA5MDI5NywiZXhwIjoxOTU0NjY2Mjk3fQ.3NYCDZPa8cA6dMsesjYazjt1GeKEEV_KjrO4x-Goz0M",
             ]
             
         },
