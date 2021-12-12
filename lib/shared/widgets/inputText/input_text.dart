@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:primeiroapp/shared/theme/app_theme.dart';
 import 'package:primeiroapp/shared/theme/app_text.dart';
 
@@ -8,6 +9,9 @@ class InputText extends StatelessWidget {
   final bool obscure;
   final Function(String)? onChanged;
   final String? Function(String)? validator;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? textInputType;
+  final String? initialValue;
   const InputText({
     Key? key,
     required this.label,
@@ -15,6 +19,9 @@ class InputText extends StatelessWidget {
     this.obscure = false,
     this.onChanged,
     this.validator,
+    this.inputFormatters,
+    this.textInputType,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -25,6 +32,9 @@ class InputText extends StatelessWidget {
         Text(label).label,
         SizedBox(height: 12),
         TextFormField(
+          inputFormatters: inputFormatters,
+          keyboardType: textInputType,
+          initialValue: initialValue,
           obscureText: obscure,
           style: AppTheme.textStyles.input,
           onChanged: onChanged,

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:primeiroapp/modules/create/create_bottom_sheet.dart';
-import 'package:primeiroapp/modules/feed/feed_page.dart';
-import 'package:primeiroapp/shared/models/user_model.dart';
 import 'package:primeiroapp/shared/theme/app_theme.dart';
 import 'package:primeiroapp/shared/widgets/bottomNavigator/app_bottom_navigator.dart';
 
@@ -20,10 +18,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
+  late final List<Widget> pages = widget.pages;
 
-  void changeIndex(int index) {
+  void changeIndex(int index) async {
     if (index == 3) {
-      showModalBottomSheet(
+      await showModalBottomSheet(
+        enableDrag: false,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(32),
@@ -35,8 +35,8 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       currentIndex = index;
-      setState(() {});
     }
+    setState(() {});
   }
 
   @override
@@ -48,7 +48,10 @@ class _HomePageState extends State<HomePage> {
         height: size.height,
         child: Stack(
           children: [
-            widget.pages[currentIndex],
+            Container(
+              key: UniqueKey(),
+              child: List.from(pages)[currentIndex],
+            ),
             Positioned(
               bottom: 14,
               right: 26,
