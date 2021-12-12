@@ -35,7 +35,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 onTap: () => Navigator.pushReplacementNamed(context, '/login'),
               ),
-            )
+            ),
+            SizedBox(height: 100),
           ],
         ),
       ),
