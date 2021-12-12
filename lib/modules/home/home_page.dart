@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:primeiroapp/modules/create/create_bottom_sheet.dart';
+import 'package:primeiroapp/shared/models/user_model.dart';
 import 'package:primeiroapp/shared/theme/app_theme.dart';
 import 'package:primeiroapp/shared/widgets/bottomNavigator/app_bottom_navigator.dart';
 
 class HomePage extends StatefulWidget {
-  // final UserModel user;
+  final UserModel user;
   final List<Widget> pages;
   const HomePage({
     Key? key,
     required this.pages,
-    // required this.user,
+    required this.user,
   }) : super(key: key);
 
   @override
