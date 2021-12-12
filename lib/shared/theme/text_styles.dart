@@ -12,6 +12,9 @@ abstract class IAppTextStyle {
   TextStyle get buttonTextColor;
   TextStyle get title;
   TextStyle get subtitle;
+  TextStyle get listTileTitle;
+  TextStyle get listTileSubtitle;
+  TextStyle get chart;
 }
 
 class AppTextStyle implements IAppTextStyle {
@@ -67,5 +70,23 @@ class AppTextStyle implements IAppTextStyle {
         fontSize: 14,
         color: AppTheme.colors.subtitle,
         fontWeight: FontWeight.normal,
+      );
+  @override
+  TextStyle get listTileTitle => GoogleFonts.inter(
+        fontSize: 16,
+        color: AppTheme.colors.textColor,
+        fontWeight: FontWeight.w500,
+      );
+  @override
+  TextStyle get listTileSubtitle => GoogleFonts.inter(
+        fontSize: 14,
+        color: AppTheme.colors.textColor,
+        fontWeight: FontWeight.normal,
+      );
+  @override
+  TextStyle get chart => GoogleFonts.inter(
+        fontSize: 14,
+        color: AppTheme.colors.textEnabled,
+        fontWeight: FontWeight.bold,
       );
 }
