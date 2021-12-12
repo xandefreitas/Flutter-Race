@@ -28,13 +28,13 @@ class AppBottomNavigator extends StatelessWidget {
               icon: Icons.home,
             ),
             BottomNavigatorIcon(
-              onTap: () => onChanged(1),
-              enabled: currentIndex == 1,
+              onTap: () => onChanged(3),
+              enabled: false,
               icon: Icons.add,
             ),
             BottomNavigatorIcon(
-              onTap: () => onChanged(2),
-              enabled: currentIndex == 2,
+              onTap: () => onChanged(1),
+              enabled: currentIndex == 1,
               icon: Icons.settings,
             ),
           ],
